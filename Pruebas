@@ -1,0 +1,31 @@
+from SistemaArchivos import SistemaArchivos
+
+def ejecutar_pruebas():
+    sistema = SistemaArchivos()
+    
+    print("--- INICIO PRUEBAS DÍA 2-3 ---")
+    
+    # 1. Prueba de Inserción (Replicando parte de tu JSON)
+    sistema.crear_nodo("0", "1", "Proyectos", "carpeta")
+    sistema.crear_nodo("1", "3", "Proyecto.pdf", "archivo", "Datos del proyecto...")
+    
+    # 2. Prueba de Búsqueda
+    encontrado = sistema.buscar_nodo("3")
+    if encontrado and encontrado.nombre == "Proyecto.pdf":
+        print("✅ Prueba Búsqueda: PASÓ")
+    else:
+        print("❌ Prueba Búsqueda: FALLÓ")
+
+    # 3. Prueba de Estructura
+    print("\nVisualización actual:")
+    sistema.mostrar_arbol()
+
+    # 4. Prueba de Eliminación
+    sistema.eliminar_nodo("3") # Borramos el PDF
+    if not sistema.buscar_nodo("3"):
+        print("✅ Prueba Eliminación: PASÓ")
+    else:
+         print("Prueba Eliminación: FALLÓ")
+
+if __name__ == "__main__":
+    ejecutar_pruebas()
