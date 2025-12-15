@@ -1,0 +1,82 @@
+SCRIPT DEMO - PROYECTO ESTRUCTURA DE DATOS
+====================================================
+
+1. PREPARACIÓN 
+   - Borra (o renombra) el archivo 'filesystem.json' para empezar limpio.
+   - Ejecuta: python main.py
+
+2. INICIO Y CREACIÓN DE ÁRBOL (Mkdir / Touch)
+   "Empezamos con un sistema vacío. Vamos a crear una estructura para la Universidad."
+   
+   $ mkdir Universidad      (ID: uni)
+   $ cd uni
+   $ mkdir Semestre_1       (ID: sem1)
+   $ mkdir Semestre_2       (ID: sem2)
+   $ cd sem1
+   $ touch Horario.txt      (ID: h1)  -> Contenido: "Lunes y Miercoles"
+   $ cd ..                  (Subimos a Universidad)
+   $ cd ..                  (Subimos a Raíz)
+   
+   "Verificamos la estructura creada:"
+   $ tree
+
+3. POTENCIA DEL BUSCADOR TRIE (Search)
+   "Vamos a crear archivos con nombres parecidos para probar el autocompletado del Trie."
+   
+   $ cd uni
+   $ cd sem2
+   $ touch Proyecto_Final.pdf    (ID: p1) -> Contenido: x
+   $ touch Proyecto_Beta.pdf     (ID: p2) -> Contenido: x
+   $ touch Propuesta.docx        (ID: p3) -> Contenido: x
+   $ touch Examen.txt            (ID: e1) -> Contenido: x
+   
+   "Probamos el buscador por prefijo:"
+   $ search Pro
+   (DEBE SALIR: Proyecto_Final, Proyecto_Beta, Propuesta)
+   
+   $ search Proye
+   (DEBE SALIR SOLO: Proyecto_Final, Proyecto_Beta)
+
+4. MODIFICACIÓN Y ACTUALIZACIÓN DE ÍNDICES (Rename)
+   "Si renombramos un archivo, el Trie se actualiza automáticamente."
+   
+   $ rn p1 Tesis_Final.pdf
+   
+   "Buscamos con el nuevo nombre:"
+   $ search Tes
+   (DEBE SALIR: Tesis_Final.pdf)
+
+5. MOVIMIENTO Y VALIDACIÓN (Move)
+   "Vamos a mover el archivo de Tesis a la carpeta del Semestre 1."
+   
+   $ mv p1 sem1
+   
+   "Verificamos que se movió:"
+   $ cd ..
+   $ cd sem1
+   $ ls
+   (Debe estar Horario.txt y Tesis_Final.pdf)
+
+6. ELIMINACIÓN SEGURA (Papelera)
+   "Borramos el horario, pero va a la papelera por seguridad."
+   
+   $ rm h1
+   $ papelera
+   (Muestra el archivo ahí)
+   
+   "Vaciamos la papelera:"
+   $ papelera -> responder 's'
+
+7. PERSISTENCIA Y RECORRIDO (Save / Preorden)
+   "Guardamos todo en JSON para no perder datos."
+   
+   $ save
+   $ preorden
+   "Este es el recorrido técnico del árbol en Preorden."
+   
+   $ exit
+
+8. PRUEBA DE FUEGO (Recarga)
+   - Vuelve a ejecutar: python main.py
+   - Escribe: $ tree
+   - "Como ven, toda la estructura se cargó correctamente desde el disco."
